@@ -82,7 +82,7 @@ FROM ubuntu:#{u}
 end
 
 DOCKER_FEDORA_VERSIONS.each do |u|
-  d = "scsynth-fedora-#{u}-x86"
+  d = "scsynth-fedora-#{u}-x86-64"
   FileUtils.mkdir_p d
   code = <<-END_CODE
 FROM fedora:#{u}
