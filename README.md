@@ -66,3 +66,9 @@ Mac OS X
 Windows x86
 Windows x64
 ```
+
+## links
+
+https://github.com/samaaron/sonic-pi/blob/master/app/server/sonicpi/lib/sonicpi/scsynthnative.rb
+https://gist.github.com/rogerallen/82dc82c9079eef6bc456
+
