@@ -21,7 +21,7 @@ ARMv8-A VFPv4
 
 ```
 TI AM3358/9 - Cortex-A8 - VFPv3
-TI Sitara AM5728 - Cortex-A15 - VFPv4
+TI Sitara AM5728 - Cortex-A15 - VFPv4,
 BCM2836 Cortex-A7 - VFPv4
 BCM2837 Cortex-A53 - VFPv4
 Tegra K1 32-bit - Cortex-A15 - VFPv4
