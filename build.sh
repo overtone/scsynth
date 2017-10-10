@@ -42,4 +42,5 @@ case "$1" in
 	cp ../../target/scmake-extras/source/StkInst/*.so ./plugins
 	echo "Finish"
 	;;
+
 esac
