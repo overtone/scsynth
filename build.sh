@@ -33,13 +33,13 @@ case "$1" in
 	make -j6
 	cd ../../native
 	rm -rf linux
-	mkdir linux linux/plugins linux/scsynth
-	cd linux
+	mkdir linux linux/x86_64
+	cd linux/x86_64
 	echo "Copy artifacts to native/linux"
-	cp ../../target/scmake/server/scsynth/*.so* ./scsynth
-	cp ../../target/scmake/server/plugins/*.so ./plugins
-	cp ../../target/scmake-extras/source/*.so ./plugins
-	cp ../../target/scmake-extras/source/StkInst/*.so ./plugins
+	cp ../../../target/scmake/server/scsynth/*.so* ./
+	cp ../../../target/scmake/server/plugins/*.so ./
+	cp ../../../target/scmake-extras/source/*.so ./
+	cp ../../../target/scmake-extras/source/StkInst/*.so ./
 	echo "Finish"
 	;;
 
