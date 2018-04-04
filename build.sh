@@ -43,4 +43,31 @@ case "$1" in
 	echo "Finish"
 	;;
 
+        'macosx')
+	echo "Fetch submodules"
+	git submodule init && git submodule update
+	cd supercollider
+	git submodule init && git submodule update
+	cd ../sc3-plugins/
+	git submodule init && git submodule update
+	cd ../target
+	rm -rf scmake scmake-extras
+	mkdir scmake scmake-extras
+	cd scmake
+	cmake ../../supercollider -G Xcode -DCMAKE_PREFIX_PATH=`brew --prefix qt55` -DSUPERNOVA:BOOL=OFF -DLIBSCSYNTH:BOOL=ON
+	cmake --build . --config Release
+	cd ../scmake-extras
+	cmake ../../sc3-plugins -DSC_PATH=../../supercollider
+	cmake --build . --config Release
+	cd ../../native
+	rm -rf macosx
+	mkdir macosx macosx/x86_64
+	cd macosx/x86_64
+	echo "Copy artifacts to native/macosx"
+	cp ../../../target/scmake/server/scsynth/Release/*.dylib* ./
+	cp ../../../target/scmake/server/plugins/Release/*.scx ./
+	cp ../../../target/scmake-extras/source/*.scx ./
+	cp ../../../target/scmake-extras/source/StkInst/*.scx ./
+	echo "Finish"
+	;;
 esac
