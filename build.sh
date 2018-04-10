@@ -29,7 +29,7 @@ case "$1" in
 	cmake ../../supercollider -DSUPERNOVA:BOOL=OFF -DLIBSCSYNTH:BOOL=ON
 	make -j6
 	cd ../scmake-extras
-	cmake ../../sc3-plugins -DSC_PATH=../../supercollider
+	cmake ../../sc3-plugins -DSUPERNOVA:BOOL=OFF -DSC_PATH=../../supercollider
 	make -j6
 	cd ../../native
 	rm -rf linux
