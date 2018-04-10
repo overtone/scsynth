@@ -9,4 +9,4 @@
             :distribution :repo
             :comments "Please use Overtone for good"}
   
-  :resource-paths ["native"])
+  :resource-paths ["resources"])
