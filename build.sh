@@ -43,7 +43,12 @@ case "$1" in
                                   -DFFTW3F_INCLUDE_DIR:STRING="../fftw-3.3.7/api"
 	make -j6
 	cd ../scmake-extras
-	cmake ../../sc3-plugins -DSUPERNOVA:BOOL=OFF -DSC_PATH=../../supercollider
+        cmake ../../sc3-plugins   -DSUPERNOVA:BOOL=OFF -DSC_IDE:BOOL=OFF -DLIBSCSYNTH:BOOL=ON \
+                                  -DSNDFILE_LIBRARY:STRING="`cd ..;pwd`/libsndfile-build/libsndfile.so" \
+                                  -DFFTW3F_LIBRARY="`cd ..;pwd`/fftw-3.3.7/build/.libs/libfftw3f.so" \
+                                  -DFFTW3F_INCLUDE_DIR:STRING="../fftw-3.3.7/api" \
+                                  -DSC_PATH=../../supercollider
+	# cmake ../../sc3-plugins -DSUPERNOVA:BOOL=OFF -DSC_PATH=../../supercollider
 	make -j6
 	cd ../../native
 	rm -rf linux
