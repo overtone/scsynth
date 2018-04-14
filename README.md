@@ -1,3 +1,5 @@
+[![Clojars Project](https://img.shields.io/clojars/v/overtone/scsynth.svg)](https://clojars.org/overtone/scsynth) [![Clojars Project](https://img.shields.io/clojars/v/overtone/scsynth-extras.svg)](https://clojars.org/overtone/scsynth-extras)
+
 # This repository hosts the native os-specific library files of libscsynth and sc-plugins for overtone
 
 Linux notes:
