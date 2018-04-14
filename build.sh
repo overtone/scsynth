@@ -17,16 +17,30 @@ case "$1" in
 	# tar jfx target/SuperCollider-3.8.0-Source-linux.tar.bz2 -C target
 	
 	echo "Fetch submodules"
-	git submodule init && git submodule update
-	cd supercollider
-	git submodule init && git submodule update
-	cd ../sc3-plugins/
-	git submodule init && git submodule update
-	cd ../target
-	rm -rf scmake scmake-extras
-	mkdir scmake scmake-extras
-	cd scmake
-	cmake ../../supercollider -DSUPERNOVA:BOOL=OFF -DLIBSCSYNTH:BOOL=ON
+	git submodule update --init --recursive
+	cd target
+	rm -rf scmake scmake-extras fftw-3.3.7
+	mkdir scmake scmake-extras libsndfile-build
+        cd libsndfile-build
+        cmake ../../libsndfile
+        make
+        cd ../
+        wget -nc http://fftw.org/fftw-3.3.7.tar.gz
+        tar -xvf fftw-3.3.7.tar.gz
+        cd fftw-3.3.7
+        mkdir build
+        cd build
+        sh ../configure --enable-float --enable-shared
+        make
+        # make install DESTDIR=`pwd`
+        # -DSNDFILE_LIBRARY=`pwd`/../libcsound-build/libsndfile \
+        # -DFFTW3F_LIBRARY=`pwd`/../fftw-3.3.7/build/.libs/libfftw3
+        # -DSNDFILE_INCLUDE_DIR:STRING="../../libsndfile/src"  \
+	cd ../scmake
+	cmake ../../supercollider -DSUPERNOVA:BOOL=OFF -DSC_IDE:BOOL=OFF -DLIBSCSYNTH:BOOL=ON \
+                                  -DSNDFILE_LIBRARY:STRING="`cd ..;pwd`/libsndfile-build/libsndfile.so" \
+                                  -DFFTW3F_LIBRARY="`cd ..;pwd`/fftw-3.3.7/build/.libs/libfftw3f.so" \
+                                  -DFFTW3F_INCLUDE_DIR:STRING="../fftw-3.3.7/api"
 	make -j6
 	cd ../scmake-extras
 	cmake ../../sc3-plugins -DSUPERNOVA:BOOL=OFF -DSC_PATH=../../supercollider
@@ -45,12 +59,8 @@ case "$1" in
 
         'macosx')
 	echo "Fetch submodules"
-	git submodule init && git submodule update
-	cd supercollider
-	git submodule init && git submodule update
-	cd ../sc3-plugins/
-	git submodule init && git submodule update
-	cd ../target
+	git submodule update --init --recursive
+	cd target
 	rm -rf scmake scmake-extras
 	mkdir scmake scmake-extras
 	cd scmake

@@ -4,3 +4,6 @@
 [submodule "supercollider"]
     path = supercollider
     url = git://github.com/supercollider/supercollider
+[submodule "libsndfile"]
+    path = libsndfile
+    url = git://github.com/erikd/libsndfile
