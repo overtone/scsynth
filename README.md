@@ -11,6 +11,12 @@ JACK(libjack) still needs to be installed.
 ```
 patchelf --set-rpath native/linux/x86_64 native/linux/x86_64/libsndfile.so.1
 patchelf --set-rpath native/linux/x86_64 native/linux/x86_64/libscsynth.so
+patchelf --set-rpath native/linux/x86_64 native/linux/x86_64/plugins/DiskIO_UGens.so
+
+# scsynth-extras files:
+patchelf --set-rpath native/linux/x86_64 native/linux/x86_64/plugins/PitchDetection.so
+patchelf --set-rpath native/linux/x86_64 native/linux/x86_64/plugins/NCAnalysisUGens.so
+
 ```
 
 NixOs notes:
