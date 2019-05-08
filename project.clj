@@ -1,4 +1,4 @@
-(defproject overtone/scsynth "3.9.3-1"
+(defproject overtone/scsynth "3.10.2"
   :description "scsynth native libs with extras"
   :url "http://overtone.github.io/"
   :mailing-list {:name "overtone"
