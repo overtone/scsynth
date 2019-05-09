@@ -15,15 +15,15 @@ case "$1" in
     'linux')
 	# wget https://github.com/supercollider/supercollider/releases/download/Version-3.8.0/SuperCollider-3.8.0-Source-linux.tar.bz2 -P target
 	# tar jfx target/SuperCollider-3.8.0-Source-linux.tar.bz2 -C target
-	
+
 	echo "Fetch submodules"
 	git submodule update --init --recursive
 	cd target
 	rm -rf scmake scmake-extras fftw-3.3.7
 	mkdir scmake scmake-extras libsndfile-build
         cd libsndfile-build
-        cmake ../../libsndfile
-        make
+        cmake ../../libsndfile || exit -1
+        make || exit -1
         cd ../
         wget -nc http://fftw.org/fftw-3.3.7.tar.gz
         tar -xvf fftw-3.3.7.tar.gz
@@ -37,19 +37,19 @@ case "$1" in
         # -DFFTW3F_LIBRARY=`pwd`/../fftw-3.3.7/build/.libs/libfftw3
         # -DSNDFILE_INCLUDE_DIR:STRING="../../libsndfile/src"  \
 	cd ../scmake
-	cmake ../../supercollider -DSUPERNOVA:BOOL=OFF -DSC_IDE:BOOL=OFF -DLIBSCSYNTH:BOOL=ON \
+	cmake ../../supercollider -DSC_QT:BOOL=OFF -DSUPERNOVA:BOOL=OFF -DSC_IDE:BOOL=OFF -DLIBSCSYNTH:BOOL=ON \
                                   -DSNDFILE_LIBRARY:STRING="`cd ..;pwd`/libsndfile-build/libsndfile.so" \
                                   -DFFTW3F_LIBRARY="`cd ..;pwd`/fftw-3.3.7/build/.libs/libfftw3f.so" \
                                   -DFFTW3F_INCLUDE_DIR:STRING="../fftw-3.3.7/api"
-	make -j6
+	make -j6 || exit -1
 	cd ../scmake-extras
         cmake ../../sc3-plugins   -DSUPERNOVA:BOOL=OFF -DSC_IDE:BOOL=OFF -DLIBSCSYNTH:BOOL=ON \
                                   -DSNDFILE_LIBRARY:STRING="`cd ..;pwd`/libsndfile-build/libsndfile.so" \
                                   -DFFTW3F_LIBRARY="`cd ..;pwd`/fftw-3.3.7/build/.libs/libfftw3f.so" \
                                   -DFFTW3F_INCLUDE_DIR:STRING="../fftw-3.3.7/api" \
-                                  -DSC_PATH=../../supercollider
+                                  -DSC_PATH=../../supercollider || exit -1
 	# cmake ../../sc3-plugins -DSUPERNOVA:BOOL=OFF -DSC_PATH=../../supercollider
-	make -j6
+	make -j6 || exit -1
 	cd ../../native
 	rm -rf linux
 	mkdir linux linux/x86_64
@@ -69,11 +69,11 @@ case "$1" in
 	rm -rf scmake scmake-extras
 	mkdir scmake scmake-extras
 	cd scmake
-	cmake ../../supercollider -G Xcode -DCMAKE_PREFIX_PATH=`brew --prefix qt55` -DSUPERNOVA:BOOL=OFF -DLIBSCSYNTH:BOOL=ON
+	cmake ../../supercollider -G Xcode -DSUPERNOVA:BOOL=OFF -DLIBSCSYNTH:BOOL=ON -DQt5_DIR=/usr/local/Cellar/qt/5.12.3/lib/cmake/Qt5 -DQt5MacExtras_DIR=/usr/local/Cellar/qt/5.12.3/lib/cmake/Qt5MacExtras/ || exit -1
 	cmake --build . --config Release
 	cd ../scmake-extras
-	cmake ../../sc3-plugins -DSC_PATH=../../supercollider
-	cmake --build . --config Release
+	cmake ../../sc3-plugins -DSC_PATH=../../supercollider || exit -1
+	cmake --build . --config Release || exit -1
 	cd ../../native
 	rm -rf macosx
 	mkdir macosx macosx/x86_64

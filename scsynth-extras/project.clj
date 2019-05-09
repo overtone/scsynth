@@ -1,4 +1,4 @@
-(defproject overtone/scsynth-extras "3.9.3-1"
+(defproject overtone/scsynth-extras "3.10.2"
   :description "scsynth native libs with extras"
   :url "http://overtone.github.io/"
   :mailing-list {:name "overtone"
@@ -8,5 +8,5 @@
             :url "http://opensource.org/licenses/MIT"
             :distribution :repo
             :comments "Please use Overtone for good"}
-  
+
   :resource-paths ["resources"])

@@ -1,6 +1,7 @@
 docker/docker-settings.sh
 target
 *~
-/native
+.DS_Store
 pom.xml*
+/native
 
